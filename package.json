@@ -1,0 +1,29 @@
+{
+  "name": "wunderflats_test",
+  "version": "0.0.1",
+  "description": "A small test suite for testing the Wunderflats account settings webpage",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/wdio wdio.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/elewandowski/wunderflats_test.git"
+  },
+  "author": "Emil Lewandowski",
+  "license": "ISC",
+  "devDependencies": {
+    "@wdio/cli": "^5.3.5",
+    "@wdio/concise-reporter": "^5.2.3",
+    "@wdio/dot-reporter": "^5.2.3",
+    "@wdio/local-runner": "^5.3.5",
+    "@wdio/mocha-framework": "^5.3.2",
+    "@wdio/selenium-standalone-service": "^5.2.2",
+    "@wdio/sync": "^5.3.2",
+    "chai": "^4.2.0",
+    "wdio": "^3.0.0"
+  },
+  "dependencies": {
+    "webdriverio": "^5.3.5"
+  }
+}
