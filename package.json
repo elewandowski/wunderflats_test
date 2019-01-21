@@ -21,7 +21,9 @@
     "@wdio/selenium-standalone-service": "^5.2.2",
     "@wdio/sync": "^5.3.2",
     "chai": "^4.2.0",
-    "wdio": "^3.0.0"
+    "wdio": "^3.0.0",
+    "cryptiles": ">=4.1.2",
+    "hoek": ">=4.2.1"
   },
   "dependencies": {
     "webdriverio": "^5.3.5"
