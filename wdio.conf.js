@@ -1,3 +1,9 @@
+var argv = require('minimist')(process.argv.slice(2))
+
+const debug = argv.debug
+const ONE_HOUR = 1000 * 60 * 60
+const ONE_MINUTE = 1000 * 60 * 1
+
 exports.config = {
     //
     // ====================
@@ -18,7 +24,7 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        './test/specs/**/*.js'
+        './test/specs/account.js'
     ],
     // Patterns to exclude.
     exclude: [
@@ -61,7 +67,7 @@ exports.config = {
     // Define all options that are relevant for the WebdriverIO instance here
     //
     // Level of logging verbosity: trace | debug | info | warn | error
-    logLevel: 'debug',
+    logLevel: 'warn',
     //
     // Warns when a deprecated command is used
     deprecationWarnings: true,
@@ -103,13 +109,13 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter.html
-    reporters: ['dot', 'concise'],
+    reporters: ['spec'],
     //
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
     mochaOpts: {
         ui: 'bdd',
-        timeout: 600000
+        timeout: debug ? ONE_HOUR : ONE_MINUTE
     },
     //
     // =====

@@ -1,4 +1,4 @@
-const user = require('../data/user.json')
+const user = require('../data/user.js')
 const {uniqueifyEmail} = require('../helpers/generic.js')
 
 
