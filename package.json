@@ -27,7 +27,5 @@
     "minimist": "^1.2.0",
     "wdio": "^3.0.0"
   },
-  "dependencies": {
-    "webdriverio": "^5.3.5"
-  }
+  "dependencies": {}
 }
