@@ -239,9 +239,125 @@ describe('Account page', () => {
                 expect(getDobValue()).to.deep.equal(user.dob)
             })
             it('can be updated', () => {
-                // browser.debug()
                 clickSubmitButtonAndWaitForLoadToFinish()
                 expect(getDobValue()).to.deep.equal(user.dob)
+            })
+        })
+        describe('Address field', () => {
+            describe('First line field', () => {
+                const line1Sel = '#addressLine1'
+
+                it('is displayed', () => {
+                    $(line1Sel).waitForDisplayed()
+                })
+                it(`is initially blank`, () => {
+                    expect($(line1Sel).getValue()).to.equal('')
+                })
+                it(`can be set to ${user.address.line1}`, () => {
+                    $(line1Sel).setValue(user.address.line1)
+                    expect($(line1Sel).getValue()).to.equal(user.address.line1)
+                })
+                it('can be updated', () => {
+                    clickSubmitButtonAndWaitForLoadToFinish()
+                    expect($(line1Sel).getValue()).to.equal(user.address.line1)
+                })
+            })
+            describe('Second line field', () => {
+                const line2Sel = '#addressLine2'
+
+                it('is displayed', () => {
+                    $(line2Sel).waitForDisplayed()
+                })
+                it(`is initially blank`, () => {
+                    expect($(line2Sel).getValue()).to.equal('')
+                })
+                it(`can be set to ${user.address.line2}`, () => {
+                    $(line2Sel).setValue(user.address.line2)
+                    expect($(line2Sel).getValue()).to.equal(user.address.line2)
+                })
+                it('can be updated', () => {
+                    clickSubmitButtonAndWaitForLoadToFinish()
+                    expect($(line2Sel).getValue()).to.equal(user.address.line2)
+                })
+            })
+            describe('Zip Code field', () => {
+                const zipCodeSel = '#zipCode'
+
+                it('is displayed', () => {
+                    $(zipCodeSel).waitForDisplayed()
+                })
+                it(`is initially blank`, () => {
+                    expect($(zipCodeSel).getValue()).to.equal('')
+                })
+                it(`can be set to ${user.address.zipCode}`, () => {
+                    $(zipCodeSel).setValue(user.address.zipCode)
+                    expect($(zipCodeSel).getValue()).to.equal(user.address.zipCode)
+                })
+                it('can be updated', () => {
+                    clickSubmitButtonAndWaitForLoadToFinish()
+                    expect($(zipCodeSel).getValue()).to.equal(user.address.zipCode)
+                })
+            })
+            describe('City field', () => {
+                const citySel = '#city'
+
+                it('is displayed', () => {
+                    $(citySel).waitForDisplayed()
+                })
+                it(`is initially blank`, () => {
+                    expect($(citySel).getValue()).to.equal('')
+                })
+                it(`can be set to ${user.address.city}`, () => {
+                    $(citySel).setValue(user.address.city)
+                    expect($(citySel).getValue()).to.equal(user.address.city)
+                })
+                it('can be updated', () => {
+                    clickSubmitButtonAndWaitForLoadToFinish()
+                    expect($(citySel).getValue()).to.equal(user.address.city)
+                })
+            })
+            describe('Region field', () => {
+                const regionSel = '#region'
+
+                it('is displayed', () => {
+                    $(regionSel).waitForDisplayed()
+                })
+                it(`is initially blank`, () => {
+                    expect($(regionSel).getValue()).to.equal('')
+                })
+                it(`can be set to ${user.address.region}`, () => {
+                    $(regionSel).setValue(user.address.region)
+                    expect($(regionSel).getValue()).to.equal(user.address.region)
+                })
+                it('can be updated', () => {
+                    clickSubmitButtonAndWaitForLoadToFinish()
+                    expect($(regionSel).getValue()).to.equal(user.address.region)
+                })
+            })
+            describe('Nationality field', () => {
+                const countryFieldSel = '#addressCountry'
+                const ghanaianNationality = {
+                    name: 'Ghana',
+                    code: 'GH'
+                }
+                const ghanaCountrySel = `${countryFieldSel} option[value="${ghanaianNationality.code}"]`
+    
+                it('is displayed', () => {
+                    $(countryFieldSel).waitForDisplayed()
+                })
+                it(`is initially set to ${user.nationality.code}`, () => {
+                    expect($(countryFieldSel).getValue()).to.equal(user.address.country.code)
+                })
+                it(`can be set to Ghana`, () => {
+                    $(ghanaCountrySel).click()
+                    expect($(countryFieldSel).getValue()).to.equal(ghanaianNationality.code)
+                    expect($(ghanaCountrySel).getProperty('selected')).to.equal(true)
+                })
+                it('can be updated', () => {
+                    clickSubmitButtonAndWaitForLoadToFinish()
+                    expect($(countryFieldSel).getValue()).to.equal(ghanaianNationality.code)
+                    expect($(ghanaCountrySel).getProperty('selected')).to.equal(true)
+                })
             })
         })
     })

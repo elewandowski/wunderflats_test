@@ -20,8 +20,11 @@ exports.user = {
         line2: "Second floor",
         zipCode: "13322",
         city: "Berlin",
-        state: "Berlin",
-        country: "Germany",   
+        region: "Berlin",
+        country: {
+            name: "Germany",
+            code: 'DE'
+        },
     },
     jobTitle: "Software Engineer",
     companyName: "wunderflats"
