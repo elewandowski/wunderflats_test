@@ -147,7 +147,7 @@ describe('Account page', () => {
                         browser.waitUntil(() => $(dialCodeFieldValueSel).getValue() === germanDialCode.number)
                         expect($(dialCodeFieldValueSel).getValue()).to.equal(user.dialCode)
                     })
-                    it(`can be set to UK dial code, when valid UK phone number is also used`, () => {
+                    it(`can be set to UK dial code, when valid UK phone number is used`, () => {
                         emptyFieldUsingKeyboard(phoneNumFieldSel)
                         $(phoneNumFieldSel).setValue(validUkPhoneNumber)
                         $(`${dropDownSel}-select option[value="${ukDialCode.text}"]`).click()
@@ -230,6 +230,7 @@ describe('Account page', () => {
                     month: '',
                     year: ''
                 }
+                // use deep comparison here, as we are comparing two objects
                 expect(getDobValue()).to.deep.equal(blankDob)
             })
             it(`can be set to ${dobObjectToString(user.dob)}`, () => {

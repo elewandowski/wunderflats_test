@@ -1,6 +1,10 @@
 const {user} = require('../data/user.js')
 
 exports.signUp = (email) => {
+    /* 
+        This script automates the signup of a user
+     */
+
     const signUpModal = $('.SignupModal')
     signUpModal.waitForDisplayed()
 
