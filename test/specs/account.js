@@ -9,13 +9,11 @@ describe('Account page', () => {
     const originalEmail = uniqueifyEmail(user.email)
     const newEmail = uniqueifyEmail('new-test@email.de')
 
-    const clickSubmitButtonAndWaitForLoadToFinish = () => {
-        const loadingOverlaySel = '.UserProfileForm--loading'
+    const clickSubmitButtonAndRefreshPage = () => {
         $(submitButtonSel).click()
-        // this loadingOverlay class is displayed whilst the form is loading
-        // wait for this to exist and then disappear, to confirm the form has updated
-        $(loadingOverlaySel).waitForExist()
-        $(loadingOverlaySel).waitForExist(null, true)
+        // pause here to wait for the submit POST request to succeed
+        browser.pause(300)
+        browser.refresh()
     }
 
     before(() => {
@@ -43,7 +41,7 @@ describe('Account page', () => {
                 $(`${languageFieldSel} ${englishValSel}`).click()
             })
             it('can be updated', () => {
-                clickSubmitButtonAndWaitForLoadToFinish()
+                clickSubmitButtonAndRefreshPage()
                 expect($(languageFieldSel).getValue()).to.equal('en')
             })
         })
@@ -61,7 +59,7 @@ describe('Account page', () => {
                 expect($(firstNameFieldSel).getValue()).to.equal(newFirstName)
             })
             it('can be updated', () => {
-                clickSubmitButtonAndWaitForLoadToFinish
+                clickSubmitButtonAndRefreshPage
                 expect($(firstNameFieldSel).getValue()).to.equal(newFirstName)
             })
         })
@@ -79,7 +77,7 @@ describe('Account page', () => {
                 expect($(lastNameFieldSel).getValue()).to.equal(newLastName)
             })
             it('can be updated', () => {
-                clickSubmitButtonAndWaitForLoadToFinish()
+                clickSubmitButtonAndRefreshPage()
                 expect($(lastNameFieldSel).getValue()).to.equal(newLastName)
             })
         })
@@ -97,7 +95,7 @@ describe('Account page', () => {
                 expect($(emailFieldSel).getValue()).to.equal(newEmail)
             })
             it('can be updated', () => {
-                clickSubmitButtonAndWaitForLoadToFinish()
+                clickSubmitButtonAndRefreshPage()
                 expect($(emailFieldSel).getValue()).to.equal(newEmail)
             })
         })
@@ -122,7 +120,7 @@ describe('Account page', () => {
                     expect($(phoneNumFieldSel).getValue()).to.equal(newGermanPhoneNumber)
                 })
                 it('can be updated', () => {
-                    clickSubmitButtonAndWaitForLoadToFinish()
+                    clickSubmitButtonAndRefreshPage()
                     expect($(phoneNumFieldSel).getValue()).to.equal(newGermanPhoneNumber)
                 })
             })
@@ -156,7 +154,7 @@ describe('Account page', () => {
                         expect($(dialCodeFieldValueSel).getValue()).to.equal(ukDialCode.number)
                     })
                     it('can be updated', () => {
-                        clickSubmitButtonAndWaitForLoadToFinish()
+                        clickSubmitButtonAndRefreshPage()
                         expect($(dialCodeFieldValueSel).getValue()).to.equal(ukDialCode.number)
                     })
                 })
@@ -172,7 +170,7 @@ describe('Account page', () => {
                         expect($(dialCodeFieldValueSel).getValue()).to.equal(germanDialCode.number)
                     })
                     it('can be updated', () => {
-                        clickSubmitButtonAndWaitForLoadToFinish()
+                        clickSubmitButtonAndRefreshPage()
                         expect($(dialCodeFieldValueSel).getValue()).to.equal(germanDialCode.number)
                     })
                 })
@@ -197,7 +195,7 @@ describe('Account page', () => {
                 expect($(ghanaNationalitySel).getProperty('selected')).to.equal(true)
             })
             it('can be updated', () => {
-                clickSubmitButtonAndWaitForLoadToFinish()
+                clickSubmitButtonAndRefreshPage()
                 expect($(ghanaNationalitySel).getProperty('selected')).to.equal(true)
             })
         })
@@ -239,7 +237,7 @@ describe('Account page', () => {
                 expect(getDobValue()).to.deep.equal(user.dob)
             })
             it('can be updated', () => {
-                clickSubmitButtonAndWaitForLoadToFinish()
+                clickSubmitButtonAndRefreshPage()
                 expect(getDobValue()).to.deep.equal(user.dob)
             })
         })
@@ -258,7 +256,7 @@ describe('Account page', () => {
                     expect($(line1Sel).getValue()).to.equal(user.address.line1)
                 })
                 it('can be updated', () => {
-                    clickSubmitButtonAndWaitForLoadToFinish()
+                    clickSubmitButtonAndRefreshPage()
                     expect($(line1Sel).getValue()).to.equal(user.address.line1)
                 })
             })
@@ -276,7 +274,7 @@ describe('Account page', () => {
                     expect($(line2Sel).getValue()).to.equal(user.address.line2)
                 })
                 it('can be updated', () => {
-                    clickSubmitButtonAndWaitForLoadToFinish()
+                    clickSubmitButtonAndRefreshPage()
                     expect($(line2Sel).getValue()).to.equal(user.address.line2)
                 })
             })
@@ -294,7 +292,7 @@ describe('Account page', () => {
                     expect($(zipCodeSel).getValue()).to.equal(user.address.zipCode)
                 })
                 it('can be updated', () => {
-                    clickSubmitButtonAndWaitForLoadToFinish()
+                    clickSubmitButtonAndRefreshPage()
                     expect($(zipCodeSel).getValue()).to.equal(user.address.zipCode)
                 })
             })
@@ -312,7 +310,7 @@ describe('Account page', () => {
                     expect($(citySel).getValue()).to.equal(user.address.city)
                 })
                 it('can be updated', () => {
-                    clickSubmitButtonAndWaitForLoadToFinish()
+                    clickSubmitButtonAndRefreshPage()
                     expect($(citySel).getValue()).to.equal(user.address.city)
                 })
             })
@@ -330,7 +328,7 @@ describe('Account page', () => {
                     expect($(regionSel).getValue()).to.equal(user.address.region)
                 })
                 it('can be updated', () => {
-                    clickSubmitButtonAndWaitForLoadToFinish()
+                    clickSubmitButtonAndRefreshPage()
                     expect($(regionSel).getValue()).to.equal(user.address.region)
                 })
             })
@@ -354,9 +352,47 @@ describe('Account page', () => {
                     expect($(ghanaCountrySel).getProperty('selected')).to.equal(true)
                 })
                 it('can be updated', () => {
-                    clickSubmitButtonAndWaitForLoadToFinish()
+                    clickSubmitButtonAndRefreshPage()
                     expect($(countryFieldSel).getValue()).to.equal(ghanaianNationality.code)
                     expect($(ghanaCountrySel).getProperty('selected')).to.equal(true)
+                })
+            })
+        })
+        describe('Employment Details', () => {
+            describe('Job Title field', () => {
+                const jobTitleSel = '#jobTitle'
+
+                it('is displayed', () => {
+                    $(jobTitleSel).waitForDisplayed()
+                })
+                it(`is initially blank`, () => {
+                    expect($(jobTitleSel).getValue()).to.equal('')
+                })
+                it(`can be set to ${user.jobTitle}`, () => {
+                    $(jobTitleSel).setValue(user.jobTitle)
+                    expect($(jobTitleSel).getValue()).to.equal(user.jobTitle)
+                })
+                it('can be updated', () => {
+                    clickSubmitButtonAndRefreshPage()
+                    expect($(jobTitleSel).getValue()).to.equal(user.jobTitle)
+                })
+            })
+            describe('Company Name field', () => {
+                const companyNameSel = '#companyName'
+
+                it('is displayed', () => {
+                    $(companyNameSel).waitForDisplayed()
+                })
+                it(`is initially blank`, () => {
+                    expect($(companyNameSel).getValue()).to.equal('')
+                })
+                it(`can be set to ${user.companyName}`, () => {
+                    $(companyNameSel).setValue(user.companyName)
+                    expect($(companyNameSel).getValue()).to.equal(user.companyName)
+                })
+                it('can be updated', () => {
+                    clickSubmitButtonAndRefreshPage()
+                    expect($(companyNameSel).getValue()).to.equal(user.companyName)
                 })
             })
         })
