@@ -10,9 +10,11 @@ describe('Account page', () => {
     const newEmail = uniqueifyEmail('new-test@email.de')
 
     const clickSubmitButtonAndWaitForLoadToFinish = () => {
-        $(submitButtonSel).click()
         const loadingOverlaySel = '.UserProfileForm--loading'
-        $(loadingOverlaySel).waitForExist(null)
+        $(submitButtonSel).click()
+        // this loadingOverlay class is displayed whilst the form is loading
+        // wait for this to exist and then disappear, to confirm the form has updated
+        $(loadingOverlaySel).waitForExist()
         $(loadingOverlaySel).waitForExist(null, true)
     }
 
@@ -20,7 +22,6 @@ describe('Account page', () => {
         // start url contains redirect to account page, to save click-through from landing page to settings page
         browser.url('https://en-master.wunderflats.xyz/signup?redirect=/my/account')
         signUp(originalEmail)
-        // newEmail = uniqueifyEmail(user.email)
     })
 
     describe('Account Settings Card', () => {
@@ -171,8 +172,6 @@ describe('Account page', () => {
                         expect($(dialCodeFieldValueSel).getValue()).to.equal(germanDialCode.number)
                     })
                     it('can be updated', () => {
-                        // emptyFieldUsingKeyboard(phoneNumFieldSel)
-                        // $(phoneNumFieldSel).setValue(newPhoneNumber)
                         clickSubmitButtonAndWaitForLoadToFinish()
                         expect($(dialCodeFieldValueSel).getValue()).to.equal(germanDialCode.number)
                     })
@@ -200,6 +199,49 @@ describe('Account page', () => {
             it('can be updated', () => {
                 clickSubmitButtonAndWaitForLoadToFinish()
                 expect($(ghanaNationalitySel).getProperty('selected')).to.equal(true)
+            })
+        })
+        describe('Date of Birth field', () => {
+            const dobSel = '.DateTextInput-inputs'
+            const daySel = `${dobSel} .DateTextInput-day`
+            const monthSel = `${dobSel} .DateTextInput-month`
+            const yearSel = `${dobSel} .DateTextInput-year`
+
+            const dobObjectToString = (dob) => (
+                `${dob.day}.${dob.month}.${dob.year}`
+            )
+            const getDobValue = () => {
+                return {
+                    day: $(daySel).getValue(),
+                    month: $(monthSel).getValue(),
+                    year: $(yearSel).getValue()
+                }
+            }
+            const setDobValue = (dob) => {
+                $(daySel).setValue(dob.day)
+                $(monthSel).setValue(dob.month)
+                $(yearSel).setValue(dob.year)
+            }
+
+            it('is displayed', () => {
+                $(dobSel).waitForDisplayed()
+            })
+            it(`is initially blank`, () => {
+                const blankDob = {
+                    day: '',
+                    month: '',
+                    year: ''
+                }
+                expect(getDobValue()).to.deep.equal(blankDob)
+            })
+            it(`can be set to ${dobObjectToString(user.dob)}`, () => {
+                setDobValue(user.dob)
+                expect(getDobValue()).to.deep.equal(user.dob)
+            })
+            it('can be updated', () => {
+                // browser.debug()
+                clickSubmitButtonAndWaitForLoadToFinish()
+                expect(getDobValue()).to.deep.equal(user.dob)
             })
         })
     })

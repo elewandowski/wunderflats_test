@@ -6,7 +6,11 @@ exports.user = {
     dialCode: '49',
     telephone: "15711561241",
     password: "password123",
-    dateOfBirth: "01.01.1990",
+    dob: {
+        day: '01',
+        month: '02',
+        year: '1990'
+    },
     nationality: {
         name: 'Germany',
         code: 'DE'
