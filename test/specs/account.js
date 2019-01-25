@@ -11,13 +11,13 @@ describe('Account page', () => {
 
     const clickSubmitButtonAndRefreshPage = () => {
         $(submitButtonSel).click()
-        // pause here to wait for the submit POST request to succeed
+        // Pause here to wait for the submit POST request to succeed
         browser.pause(300)
         browser.refresh()
     }
 
     before(() => {
-        // start url contains redirect to account page, to save click-through from landing page to settings page
+        // Start url contains redirect to account page, to save click-through from landing page to settings page
         browser.url('https://en-master.wunderflats.xyz/signup?redirect=/my/account')
         signUp(originalEmail)
     })
@@ -112,9 +112,9 @@ describe('Account page', () => {
                     expect($(phoneNumFieldSel).getValue()).to.equal(user.telephone)
                 })
                 it(`can be set to ${newGermanPhoneNumber}`, () => {
-                    // need to empty the field manually first,
+                    // Need to empty the field manually first,
                     // beause the setValue() method isn't emptying the elements value's automatically.
-                    // probably related to the react elements' JS behaviour
+                    // This is probably related to the react elements' JS behaviour
                     emptyFieldUsingKeyboard(phoneNumFieldSel)
                     $(phoneNumFieldSel).setValue(newGermanPhoneNumber)
                     expect($(phoneNumFieldSel).getValue()).to.equal(newGermanPhoneNumber)
@@ -143,7 +143,7 @@ describe('Account page', () => {
                         $(dropDownSel).waitForDisplayed()
                     })
                     it(`is initially set to DE dial code`, () => {
-                        // seems to be a delay in the data being rendered here. needed to introduce a wait
+                        // Seems to be a delay in the data being rendered here. Needed to introduce a wait
                         browser.waitUntil(() => $(dialCodeFieldValueSel).getValue() === germanDialCode.number)
                         expect($(dialCodeFieldValueSel).getValue()).to.equal(user.dialCode)
                     })
@@ -160,7 +160,7 @@ describe('Account page', () => {
                 })
                 describe('Text input', () => {
                     it('can be set to DE dial code, when valid German number is used', () => {
-                        // same applies to the text input field of the dial code - 
+                        // Same applies to the text input field of the dial code - 
                         // it ignores setValue() commands, so needs to be manually emptied,
                         // before being changed
                         emptyFieldUsingKeyboard(phoneNumFieldSel)
@@ -230,7 +230,7 @@ describe('Account page', () => {
                     month: '',
                     year: ''
                 }
-                // use deep comparison here, as we are comparing two objects
+                // Use deep comparison here, as we are comparing two objects
                 expect(getDobValue()).to.deep.equal(blankDob)
             })
             it(`can be set to ${dobObjectToString(user.dob)}`, () => {
