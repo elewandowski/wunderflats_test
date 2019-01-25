@@ -6,6 +6,8 @@ const {uniqueifyEmail, emptyFieldUsingKeyboard} = require('../helpers/generic.js
 describe('Account page', () => {
 
     const submitButtonSel = 'button[type="submit"]'
+    // As we are running this test multiple times per day, we need to uniqueify the email,
+    // so that sign up is succesful
     const originalEmail = uniqueifyEmail(user.email)
     const newEmail = uniqueifyEmail('new-test@email.de')
 
