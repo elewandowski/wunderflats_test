@@ -46,11 +46,9 @@ Additionally, I would like to explain other design choices I have made.
 
 In order to test our main feature (can fields be updated succesfully), it's best to test that prerequisite steps can achieved successfully. If we don't do this, we risk getting false-positives (i.e. the test tries to update a field, but the field is not even visible or editable). This is why I have the `is displayed` and `can be changed` tests for each field. The `contains original expected content` test isn't technically a prerequisite, but, in a complete account page test suite, would be necessary - so here I'm simply future-proofing myself.
 
-This technique can also be described as 'being granular with your test design', as each test asserts one 'quality' of a feature. 
-
 #### Making accurate assertions
 
-When designing tests, you need to be careful that your assertions are testing the correct value. e.g. In the `can be updated` test, I chose to refresh the page after submitting the form - using the `clickSubmitButtonAndRefresh()` method. Otherwise, the test would make an assumption that simply pressing the submit button makes a successful POST request. Refreshing the page and then checking the fields' content proves that the server has updated the field. 
+When designing tests, you need to be careful that your assertions are testing the correct value. e.g. In the `can be updated` test, I chose to refresh the page after submitting the form - using the `clickSubmitButtonAndRefresh()` method. Otherwise, the test would make an assumption that simply pressing the submit button makes a successful POST request. Refreshing the page and then checking the fields' content proves that the server has updated the field and that the POST request was succesful. 
 
 However, there is the possiblity that the page caches variables over refreshes, making this assertion inaccurate, but to investigate this thoroughly, I would need more time.
 
@@ -76,11 +74,11 @@ Additionally, there is some validation on the phone number field, and so a Germa
 
 #### CI
 
-These tests would ideally be introduced into the CI pipeline and would be run on developers feature branches, before being allowed to merge to master. Obviously, if their feature changes a features-under-test, then the tests would need to be updated before merging to master.
+These tests would ideally be introduced into the CI pipeline and would be run on developers feature branches, before being allowed to merge to master. Obviously, if their new feature changes an old feature, then the approriate tests would need to be updated before merging to master.
 
 #### Reporting
 
-The test uses the `spec` reporter. This displays all succesful tests heirachically, along with any errors, if they occurred. Your test results should look like this: 
+The test uses the `spec` reporter. This displays all succesful tests heirachically, along with any errors, if they occurred. If succesful, your test results should look like this: 
 
 ```
 [chrome #0-0] Spec: /Users/emil/Documents/wunder/wunderflats_test/test/specs/account.js
